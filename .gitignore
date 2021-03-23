@@ -82,3 +82,8 @@ user_song_list.h
 .envrc
 .direnv/
 
+# language tooling thigns
+.cache/
+.ccls-cache/
+.ccls
+compile_commands.json

@@ -11,6 +11,7 @@ from . import cformat
 from . import chibios
 from . import clean
 from . import compile
+from . import compiledb
 from . import config
 from . import docs
 from . import doctor

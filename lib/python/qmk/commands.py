@@ -28,7 +28,7 @@ def _find_make():
     return make_cmd
 
 
-def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
+def create_make_command(keyboard, keymap, target=None, dry_run=False, parallel=1, **env_vars):
     """Create a make compile command
 
     Args:
@@ -41,6 +41,9 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
 
         target
             Usually a bootloader.
+
+        dry_run
+             make -n -- don't actually build
 
         parallel
             The number of make jobs to run in parallel
@@ -62,7 +65,7 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
-    return [make_cmd, '-j', str(parallel), *env, ':'.join(make_args)]
+    return [make_cmd] + (['-n'] if dry_run else []) + ['-j', str(parallel), *env, ':'.join(make_args)]
 
 
 def get_git_version(repo_dir='.', check_dir='.'):

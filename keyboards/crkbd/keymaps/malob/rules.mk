@@ -28,7 +28,7 @@ BOOTLOADER = atmel-dfu
 # Settings to use QMK code rather than project custom code
 CUSTOM_MATRIX  = no  # Don't use project custom matrix.c
 SPLIT_KEYBOARD = yes # Use QMK split library rather can code in project
-SRC = 				 			 # Remove all custom project code
+SRC = 				 # Remove all custom project code
 
 
 # TODO: Figure out why LINK_TIME_OPTIMIZATION_ENABLE makes the slave half unresponsive.

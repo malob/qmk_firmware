@@ -1,60 +1,34 @@
-// vim: foldmethod=marker
+// Includes and externs ------------------------------------------------------------------------ {{{
 
-// Includes and externs {{{
-#include "crkbd.h"  // specify file directly to make ccls happy
-#include "leader.h" // custom leader implementation from users/malob
-#include "vim.h"    // Vim mode implementation from users/malob
+#include QMK_KEYBOARD_H
+
+// Userspace includes
+#include "malob.h"
+#include "leader.h" // custom leader implementation
+#include "vim.h"    // Vim mode implementation
 
 extern keymap_config_t keymap_config;
 LEAD_EXTERNS(); // needed for custom leader implementation
 VIM_EXTERNS();  // needed for vim mode
 // }}}
 
-// Custom keycodes {{{
-
-enum custom_keycodes {
-  BASE = SAFE_RANGE,
-  RAISE,
-  LOWER,
-  LEAD,
-};
-
-// `LAYOUT_kc` function prepends `KC_` to everything.
-// So when we put, e.g., `RESET` in a keymap, it corresponds to `KC_RESET` in the defines below.
-#define KC______ KC_TRNS
-#define KC_XXXXX KC_NO
-#define KC_RESET RESET
-#define KC_LEAD  LEAD
-// custom mapping to make layout cleaner
-#define KC_SPLWR LT(_LOWER, KC_SPC)
-#define KC_BSRSE LT(_RAISE, KC_BSPC)
-#define KC_BUP   KC_BRMU      // brightness up on macOS
-#define KC_BDOWN KC_BRMD      // brightness down on macOS
-#define KC_LCK   G(C(KC_Q))   // lock on macOS
-#define KC_VUP   KC__VOLUP    // volume up on macOS
-#define KC_VDOWN KC__VOLDOWN  // volume down on macOS
-#define KC_VMUTE KC__MUTE     // mute on macOS
-#define KC_NXTRK KC_MFFD      // next track on macOS
-#define KC_PRTRK KC_MRWD      // previous track on macOS
-#define KC_PLAY  KC_MPLY      // play/pause
-// #define KC_RGBUP RGB_VAI
-// #define KC_RGBDN RGB_VAD
-// #define KC_RGBTG RGB_TOG
-// }}}
-
-// Layer definitions {{{
-// Keycodes reference: https://docs.qmk.fm/#/keycodes
-
 enum layer_names {
   _BASE,
   _RAISE,
   _LOWER,
 };
+enum custom_keycodes {
+  LEAD = SAFE_RANGE,
+};
+#define KC_LEAD  LEAD
+#define KC_SPLWR LT(_LOWER, KC_SPC)
+#define KC_BSRSE LT(_RAISE, KC_BSPC)
 
-// Note that `LAYOUT_kc` macro prepends everything with `KC_`
+// Note that `CRKBD_LAYOUT` macro prepends `KC_` to everything. Layout macro and some custom
+// keycodes are defined in `malob.h` in from userspace.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_BASE] = LAYOUT_kc(
+  [_BASE] = CRKBD_LAYOUT(
 //┏━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┓              ┏━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┓
     TAB , Q   , W   , F   , P   , G   ,                J   , L   , U   , Y   , SCLN, MINS,
 //┠─────┼─────┼─────┼─────┼─────┼─────┨              ┠─────┼─────┼─────┼─────┼─────┼─────┨
@@ -62,11 +36,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //┠─────┼─────┼─────┼─────┼─────┼─────┨              ┠─────┼─────┼─────┼─────┼─────┼─────┨
     LEAD, Z   , X   , C   , V   , B   ,                K   , M   , COMM, DOT , QUES, ENT ,
 //┗━━━━━┷━━━━━┷━━━━━┷━━━━━╅─────┼─────╄━━━━━┓  ┏━━━━━╃─────┼─────╆━━━━━┷━━━━━┷━━━━━┷━━━━━┛
-                            LGUI,SPLWR, LALT,    RCTL,BSRSE, RSFT
+                            CMD ,SPLWR, OPT ,    CTRL,BSRSE, SHFT
 //                        ┗━━━━━┷━━━━━┷━━━━━┛  ┗━━━━━┷━━━━━┷━━━━━┛
   ),
 
-  [_RAISE] = LAYOUT_kc(
+  [_RAISE] = CRKBD_LAYOUT(
 //┏━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┓              ┏━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┓
     GRV , EXLM, AT  , HASH, DLR , PERC,                CIRC, AMPR, ASTR, PIPE, COLN, UNDS,
 //┠─────┼─────┼─────┼─────┼─────┼─────┨              ┠─────┼─────┼─────┼─────┼─────┼─────┨
@@ -74,11 +48,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //┠─────┼─────┼─────┼─────┼─────┼─────┨              ┠─────┼─────┼─────┼─────┼─────┼─────┨
     EQL , 1   , 2   , 3   , 4   , 5   ,                6   , 7   , 8   , 9   , 0   , PLUS,
 //┗━━━━━┷━━━━━┷━━━━━┷━━━━━╅─────┼─────╄━━━━━┓  ┏━━━━━╃─────┼─────╆━━━━━┷━━━━━┷━━━━━┷━━━━━┛
-                           _____, LCTL,_____,   _____,_____,_____
+                           _____,_____,_____,   _____,_____,_____
 //                        ┗━━━━━┷━━━━━┷━━━━━┛  ┗━━━━━┷━━━━━┷━━━━━┛
   ),
 
-  [_LOWER] = LAYOUT_kc(
+  [_LOWER] = CRKBD_LAYOUT(
 //┏━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┓              ┏━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┓
    RESET,_____,_____,_____,BDOWN, BUP ,                DOWN, RGHT,VDOWN, VUP ,VMUTE, LCK ,
 //┠─────┼─────┼─────┼─────┼─────┼─────┨              ┠─────┼─────┼─────┼─────┼─────┼─────┨
@@ -90,8 +64,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                        ┗━━━━━┷━━━━━┷━━━━━┛  ┗━━━━━┷━━━━━┷━━━━━┛
   ),
 };
-
-// }}}
 
 // OLED screens {{{
 // Uses QMK's OLED code rather than code in project
@@ -210,3 +182,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 // }}}
+// vim: foldmethod=marker

@@ -1,0 +1,60 @@
+{
+  "nodes": {
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1614513358,
+        "narHash": "sha256-LakhOx3S1dRjnh0b5Dg3mbZyH0ToC9I8Y2wKSkBaTzU=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5466c5bbece17adaab2d82fae80b46e807611bf3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1616259034,
+        "narHash": "sha256-WlMIiGIXJm7J+jemzd+ksoun6znWmabCZNz76szV158=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4e0d3868c679da20108db402785f924daa1a7fb5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "qmk-cli-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1615193210,
+        "narHash": "sha256-6HHZ7IKXM2bRqIWwvSMjH0+/WQUlFNJRk9nUmCSF4rw=",
+        "owner": "qmk",
+        "repo": "qmk_cli",
+        "rev": "d805fe2b6ed70cb3a5cdc5c23df635deb1339086",
+        "type": "github"
+      },
+      "original": {
+        "owner": "qmk",
+        "repo": "qmk_cli",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs",
+        "qmk-cli-src": "qmk-cli-src"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

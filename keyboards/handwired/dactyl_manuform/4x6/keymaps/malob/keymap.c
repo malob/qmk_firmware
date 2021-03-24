@@ -8,6 +8,8 @@ enum layer_names {
 };
 #define KC_RAISE OSL(_RAISE)
 #define KC_LOWER OSL(_LOWER)
+#define KC_BLTOG RGB_TOG
+#define KC_BLMOD RGB_MODE_FORWARD
 
 // Note that `DACMAN_LAYOUT` macro prepends `KC_` to everything. Layout macro and some custom keycodes
 // are defined in `malob.h` in from userspace.
@@ -55,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //┗━━━━━┷━━━━━╅─────┼─────╆━━━━━┷━━━━━┛                              ┗━━━━━┷━━━━━╅─────┼─────╆━━━━━┷━━━━━┛
                _____,_____,                                                       _____,_____,
 //            ┗━━━━━┷━━━━━┛ ┏━━━━━┯━━━━━┯━━━━━┯━━━━━┓  ┏━━━━━┯━━━━━┯━━━━━┯━━━━━┓ ┗━━━━━┷━━━━━┛
-                             _____,_____,_____,_____,   _____,_____,_____,_____,
+                             _____,_____,_____,_____,   _____,_____,BLMOD,BLTOG,
 //                          ┗━━━━━┷━━━━━╅─────┼─────┨  ┠─────┼─────╆━━━━━┷━━━━━┛
                                          _____,_____,   _____,_____
 //                                      ┗━━━━━┷━━━━━┛  ┗━━━━━┷━━━━━┛
